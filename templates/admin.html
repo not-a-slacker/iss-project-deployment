@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    
+    <style>
+        
+        body, html {
+            height: 100%;
+        }
+
+        .site-header {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 700px;
+      background: #252930;
+      background: linear-gradient(80deg, rgba(36, 40, 48, 0.76) 0%, rgba(36, 40, 48, 0) 100%);
+      transform-origin: 0;
+      transform: skewY(-12deg);
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #14161a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: -5px 1px;
+      height: 60px;
+    }
+
+    .header-title {
+      font-weight: 600;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .button-container {
+      margin-right: 20px;
+
+    }
+    .codepen-button2 {
+      display: block;
+      cursor: pointer;
+      color: white;
+      margin: 0 auto;
+      position: relative;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+      overflow: hidden;
+      padding: 3px;
+      isolation: isolate;
+    }
+
+    .codepen-button2::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400%;
+      height: 100%;
+      background: red;
+      background-size: 25% 100%;
+    }
+
+    .codepen-button2 span {
+      position: relative;
+      display: block;
+      padding: 7px 11px;
+      font-size: 1rem;
+      background: #000;
+      border-radius: 3px;
+      height: 100%;
+
+    }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial;
+            background-image: url("../static/img/finalbg.gif");
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            height: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+
+        h1, h2, th, td, .remove-btn, .user-row:hover {
+            color:white;
+        }
+
+        h1, h2 {
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        
+
+        th, td {
+            border-style:none;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 12px;
+            text-align: left;
+            transition: background-color 0.3s;
+            
+        }
+
+      
+
+        .remove-btn {
+           
+            border: none;
+            padding: 8px 12px;
+            
+            cursor: pointer;
+            color:black;
+            transition: background-color 0.3s;
+            background-color: lightblue;
+        }
+
+        .remove-btn:hover {
+            background-color: red;
+            color:black;
+        }
+
+        .user-row:hover {
+            
+            transform: scale(1.03);
+            color:black;
+            border-radius: 10%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="site-header"></header>
+
+    <nav class="navbar" style="text-align: center;">
+      <div class="logo">
+        <img class="header-logo-image" src="/static/img/logo.svg" alt="Logo"
+          style="width: 30px; height: 30px; margin-top: 20px;">
+          <span class="header-title">Admin Page</i></span>
+      </div>
+      <div class="button-container">
+        <a href="{{ url_for('logout') }}" class="codepen-button2"><span>Logout</span></a>
+      </div>
+    </nav>
+        
+        <br> 
+        <hr style="width: 80%;color:#f0f2f5">
+        <br><br>
+        <h2>User Details</h2>
+        <p style="font-size: 20px;text-align: center;"><em>Total Number of Users:</em> <span id="userCount"><b>0</b></span></p>
+
+        <table style="width:80%; margin-left: auto; margin-right: auto;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Table rows will be dynamically generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load user details from the server when the page is loaded
+            loadUserDetails();
+        });
+
+        function loadUserDetails() {
+            fetch('/get_user_details_admin')  // Endpoint to fetch user details from the server
+                .then(response => response.json())
+                .then(data => {
+                    // Call a function to generate table rows for each user
+                    renderUserDetails(data);
+                })
+                .catch(error => console.error('Error fetching user details:', error));
+        }
+
+        function renderUserDetails(userDetails) {
+            var userTableBody = document.getElementById('userTableBody');
+            userDetails.forEach(user => {
+                var row = document.createElement('tr');
+                row.classList.add('user-row');
+
+                // Add user details as table data
+                var nameCell = document.createElement('td');
+                nameCell.textContent = user.name;
+                row.appendChild(nameCell);
+
+                var usernameCell = document.createElement('td');
+                usernameCell.textContent = user.user_name;
+                row.appendChild(usernameCell);
+
+                var emailCell = document.createElement('td');
+                emailCell.textContent = user.email;
+                row.appendChild(emailCell);
+
+                // Add delete button
+                //var actionCell = document.createElement('td');
+                //var removeButton = document.createElement('button');
+                //removeButton.textContent = 'Remove User';
+                //removeButton.classList.add('remove-btn');
+                //removeButton.onclick = function() {
+                    //removeUser(user.user_id);  // Pass user ID to removeUser function
+                //};
+                //actionCell.appendChild(removeButton);
+                //row.appendChild(actionCell);
+
+                userTableBody.appendChild(row);
+            });
+
+            // Update the user count
+            updateUserDataCount();
+        }
+
+        function updateUserDataCount() {
+            var userCountElement = document.getElementById('userCount');
+            var userRows = document.querySelectorAll('.user-row');
+            userCountElement.textContent = userRows.length;
+        }
+
+        function removeUser(userId) {
+            // Send a request to the server to delete the user with the given ID
+            fetch(`/delete_user/${userId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // If deletion is successful, remove the corresponding table row
+                if (data.status === 'success') {
+                    var rowToRemove = document.querySelector(`.user-row[data-user-id="${userId}"]`);
+                    rowToRemove.parentNode.removeChild(rowToRemove);
+
+                    // Update the user count
+                    updateUserDataCount();
+                } else {
+                    console.error('Failed to delete user:', data.message);
+                }
+            })
+            .catch(error => console.error('Error deleting user:', error));
+        }
+    </script>
+</body>
+</html>

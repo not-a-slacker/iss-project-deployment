@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    background-image: url("../img/LoginBackground.gif   ");
+    background-size:auto 50%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+ #signup-container {
+    background-color: rgba(21, 24, 29, 0.575);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.712);
+    width: 300px;
+    text-align: center;
+    position: relative;
+    z-index: 1; 
+}
+
+#login-container {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(21, 24, 29, 0.575);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.712);
+    width: 300px;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"],
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #45a049;
+}
+
+.separator {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.or {
+    padding: 0 10px;
+    color: #777;
+}
+
+.login-with-google {
+    background-color: #dd4b39;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-with-google:hover {
+    background-color: #c23321;
+}
+
+#video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+}
+
+.confirm-password-container {
+    position: relative;
+}
+
+#confirm-password-check {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+a {
+    color: white; 
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+#login-message {
+    color: #FF5733; 
+    font-size: 14px; 
+    margin-top: 10px; 
+    font-style: italic; 
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#login-message-1 {
+    color: #FF5733; 
+    font-size: 14px; 
+    margin-top: 10px; 
+    font-style: italic; 
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}

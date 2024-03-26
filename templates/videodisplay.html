@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Display</title>
+    <link rel="stylesheet" href="../static/css/videopage.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/videopage.css') }}"/>
+</head>
+<style>
+    
+   body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+
+   button {
+    margin-top: 20px;
+    
+   }
+   .download-btn {
+    text-decoration: none;
+   }
+
+    .section-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 50px;
+    }
+
+    .video-controls div {
+        display: inline-block;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .video-controls img {
+        width: 50px;
+        height: 50px;
+    }
+
+</style>
+<body>
+    <section id="preview" class="section-container">
+        <h2>Preview</h2>
+        <div class="video-controls"> 
+            <div id="rewind"><img src="/static/img/rewind.png" alt="Rewind"></div>
+            <video controls> 
+                <!-- Add source elements for video preview -->
+                <source src="/static/output_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div id="fastForward"><img src="/static/img/fast-forward.png" alt="Fast Forward"></div>
+        </div>
+        <!-- Add download button -->
+        <a href="/static/output_video.mp4" download class="download-btn">
+            <button>Download Video</button>
+        </a>
+    </section>
+    <script>
+        // Additional JavaScript for Fast Forward and Rewind buttons
+        const video = document.querySelector('video');
+        const fastForwardBtn = document.getElementById('fastForward');
+        const rewindBtn = document.getElementById('rewind');
+
+        fastForwardBtn.addEventListener('click', () => {
+            video.currentTime += 5; // Adjust as needed
+        });
+
+        rewindBtn.addEventListener('click', () => {
+            video.currentTime -= 5; // Adjust as needed
+        });
+
+    </script>
+</body>
+</html>

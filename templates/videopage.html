@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Maker</title>
+
+    <link rel="stylesheet" href="../static/css/videopage.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/videopage.css') }}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  </head>
+  <style>
+    
+    .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #14161a;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    }
+
+</style>
+
+  <body>
+
+      <nav class="navbar">
+        <div class="logo">
+          <img class="header-logo-image" src="/static/img/logo.svg" alt="Logo" style="width: 30px; height: 30px;">
+          <span class="header-title">Video Maker</span>
+        </div>
+        <div class="button-container">
+          <a class="codepen-button" style="text-decoration:none;"><span>Create Video</span></a>
+          <a class="codepen-button2" href="{{ url_for('logout') }}"  target="_blank" style="text-decoration:none;"><span>Logout</span></a>
+        </div>
+      </nav>
+
+    <section id="photoSelection" class="section-container">
+      <div class="icon-heading-container">
+        <lord-icon
+          src="https://cdn.lordicon.com/mwtymjmp.json"
+          trigger="loop"
+          delay="2000"
+          style="width:40px;height:40px">
+        </lord-icon>
+        <h2>Select Photos</h2>
+      </div>
+      <div class="predefined-images">
+
+        <!-- Add predefined image thumbnails -->
+      {% for image_data in image_data_list %}
+
+          <img class="selectable-image" src="{{ image_data }}" alt="User Image" width="100%" height="100%">
+      {% endfor %}
+        
+
+      </div>
+    </section>
+
+    <section id="backgroundMusic" class="section-container">
+
+      <div class="icon-heading-container">
+        <lord-icon
+          src="https://cdn.lordicon.com/qaexljue.json"
+          trigger="loop"
+          delay="1000"
+          state="hover-pinch"
+          style="width:40px;height:40px">
+        </lord-icon>
+      <h2>Add Background Music</h2>
+     
+      
+      </div>
+      {% for audio_data in audio_data_list %}
+      <div class="audio-container">
+        <input type="checkbox" class="audio-checkbox" data-src="{{audio_data}}">
+        <audio class="audio" controls="controls" autobuffer="autobuffer">
+          <source src="{{audio_data}}"/>
+        </audio>
+        <span class="order"></span>
+      </div>
+      <br>
+      {% endfor %}
+      <!--
+        <button id="upload-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#fffffff" stroke-width="2"></path>
+          <path d="M17 15V18M17 21V18M17 18H14M17 18H20" stroke="#fffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        ADD FILE 
+      </button>
+      -->
+      
+      <!--<input type="file" id="file-input" accept="audio/*" style="display: none;" />-->
+    </section>
+
+    <section id="durationSettings" class="section-container">
+      
+      <div class="icon-heading-container">
+        <lord-icon
+          src="https://cdn.lordicon.com/aqrzgjfy.json"
+          trigger="loop"
+          delay="2000"
+          style="width:40px;height:40px">
+        </lord-icon>
+        <h2>Set Duration</h2>
+      </div>
+      <!-- Add input elements for setting duration -->
+      <label for="duration">Duration per Image (seconds):</label>
+      <input type="number" id="duration" name="duration" min="1" value="3" />
+    </section>
+
+    <!-- <section id="effects" class="section-container">
+        
+      <div class="icon-heading-container">
+        
+          <lord-icon
+              src="https://cdn.lordicon.com/ilsmzilo.json"
+              trigger="loop"
+              delay="1500"
+              style="width:40px;height:40px">
+          </lord-icon>
+        <h2>Effects</h2>
+      </div>
+        
+        <label for="setEffects">Set Effects:</label>
+        <select id="setEffects">
+            <option value="effect1">Effect 1</option>
+            <option value="effect2">Effect 2</option>
+            
+        </select>
+
+        
+        <label for="transitionEffects">Transition Effects:</label>
+        <select id="transitionEffects" >
+            <option value="fade">Fade</option>
+            <option value="slide">Slide</option>
+           
+        </select>
+    </section> -->
+
+    <!-- <section id="preview" class="section-container">
+        <h2>Preview</h2>
+        <div class="video-controls"> -->
+            <!-- Add fast forward and rewind icons -->
+            <!-- <button id="rewind"><img src="dist/images/rewind.png" alt="Rewind"></button>
+            <video controls> -->
+                <!-- Add source elements for video preview -->
+                <!-- <source src="dist/images/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button id="fastForward"><img src="dist/images/fast-forward.png" alt="Fast Forward"></button>
+        </div>
+    </section> -->
+
+    <section id="outputSettings" class="section-container">
+      <div class="icon-heading-container">
+        <lord-icon
+          src="https://cdn.lordicon.com/whjkutcn.json"
+          trigger="loop"
+          delay="1000"
+          style="width:40px;height:40px">
+        </lord-icon>
+        <h2>Output Settings</h2>
+      </div>
+      <!-- Add select options for video resolution and quality -->
+      <label for="resolution">Select Resolution:</label>
+      <select id="resolution">
+        <option value="480p">480p</option>
+        <option value="720p">720p</option>
+        <option value="1080p">1080p</option>
+        <option value="4k">4k</option>
+        <!-- Add more options as needed -->
+      </select>
+
+      <label for="quality">Select Quality:</label>
+      <select id="quality">
+        <option value="20">Low</option>
+        <option value="60">Medium</option>
+        <option value="90">High</option>
+      </select>
+    </section>
+
+    
+
+    <!-- Add your scripts at the end of the body -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script>
+      
+      // // for file upload button
+      // document.getElementById('upload-button').addEventListener('click', function() {
+      //     document.getElementById('file-input').click();
+      //   });
+
+    // JavaScript code for handling image selection
+      
+    $(document).ready(function(){
+      var selectedImages = [];
+      var selectedAudios = []; // Array to store selected audio files
+      var order = 0;
+      $('.selectable-image').on('click', function(){
+          $(this).toggleClass('selected');
+
+          if($(this).hasClass('selected')){
+              selectedImages.push($(this).attr('src')); // Push the image source URL
+          } else {
+              var index = selectedImages.indexOf($(this).attr('src'));
+              if (index > -1) {
+                  selectedImages.splice(index, 1);
+              }
+          }
+
+          console.log(selectedImages); //FOR TESTING
+      });
+
+      $('.audio-checkbox').on('change', function(){
+        if($(this).is(':checked')){
+            order++;
+            selectedAudios.push({src: $(this).data('src'), order: order}); // Add the audio file and its order to selectedAudios
+            $(this).nextAll('.order').first().text('Order: ' + order);
+        } else {
+            $(this).nextAll('.order').first().text('');
+            var index = selectedAudios.findIndex(audio => audio.src === $(this).data('src'));
+            if (index > -1) {
+                selectedAudios.splice(index, 1); // Remove the audio file from selectedAudios
+            }
+            $('.audio-checkbox:checked').each(function(index){
+                $(this).nextAll('.order').first().text('Order: ' + (index + 1));
+                var audioIndex = selectedAudios.findIndex(audio => audio.src === $(this).data('src'));
+                if (audioIndex > -1) {
+                    selectedAudios[audioIndex].order = index + 1; // Update the order of the audio file in selectedAudios
+                }
+            });
+            order--;
+        }
+      });
+
+      $('.codepen-button').on('click', function(e){
+        e.preventDefault(); // Prevent the default action of the button
+
+        var duration = document.getElementById('duration').value; // Get the duration value
+        var resolution = document.getElementById("resolution").value;
+        var width = 0, height = 0;
+        var quality = document.getElementById("quality").value;
+
+        if(selectedImages.length === 0){
+          alert('Please select at least one image');
+          return;
+        }
+
+        if(resolution === '480p'){
+          width = 854;
+          height = 480;
+        } else if(resolution === '720p'){
+          width = 1280;
+          height = 720;
+        } else if(resolution === '1080p'){
+          width = 1920;
+          height = 1080;
+        } else if(resolution === '4k'){
+          width = 3840;
+          height = 2160;
+        }
+        
+        $.ajax({
+          url: '/create_video', // The endpoint where the compile_images_to_video function is
+          type: 'POST',
+          data: JSON.stringify({images: selectedImages, audios: selectedAudios, fps: duration, width: width, height: height, quality: quality}), // Send the selected images, audios and duration to the server
+          contentType: 'application/json',
+          success: function(response){
+            // Handle the response from the server
+            console.log(response);
+            window.location.href='/videodisplay';
+          },
+          error: function(error){
+            // Handle any errors
+            console.log(error);
+          }
+        });
+      });
+    });
+
+      
+       // // JavaScript code for handling image selection
+      // const imageThumbnails = document.querySelectorAll(".image-thumbnail");
+
+      // imageThumbnails.forEach((thumbnail) => {
+      //   thumbnail.addEventListener("click", () => {
+      //     thumbnail.classList.toggle("selected");
+      //   });
+      // });
+
+      // // Additional JavaScript for Fast Forward and Rewind buttons
+      //   const video = document.querySelector('video');
+      //   const fastForwardBtn = document.getElementById('fastForward');
+      //   const rewindBtn = document.getElementById('rewind');
+
+      //   fastForwardBtn.addEventListener('click', () => {
+      //       video.currentTime += 5; // Adjust as needed
+      //   });
+
+      //   rewindBtn.addEventListener('click', () => {
+      //       video.currentTime -= 5; // Adjust as needed
+      //   });
+
+        
+    </script>
+  </body>
+</html>

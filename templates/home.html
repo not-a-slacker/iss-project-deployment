@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: rgb(70, 69, 82);
+      transition: scroll-behavior 0.5s;
+    }
+
+
+    .site-header {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 700px;
+      background: #252930;
+      background: linear-gradient(80deg, rgba(36, 40, 48, 0.76) 0%, rgba(36, 40, 48, 0) 100%);
+      transform-origin: 0;
+      transform: skewY(-12deg);
+    }
+
+    /* --------------------------------------------------------------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #14161a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: -5px 1px;
+      height: 60px;
+    }
+
+    .header-title {
+      font-weight: 600;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .button-container {
+      margin-right: 20px;
+
+    }
+
+    .codepen-button2 {
+      display: block;
+      cursor: pointer;
+      color: white;
+      margin: 0 auto;
+      position: relative;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+      overflow: hidden;
+      padding: 3px;
+      isolation: isolate;
+    }
+
+    .codepen-button2::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400%;
+      height: 100%;
+      background: red;
+      background-size: 25% 100%;
+    }
+
+    .codepen-button2 span {
+      position: relative;
+      display: block;
+      padding: 7px 11px;
+      font-size: 1rem;
+      background: #000;
+      border-radius: 3px;
+      height: 100%;
+
+    }
+
+    /* -------------------------------------------------------------------------------- */
+
+    #container {
+      max-width: 800px;
+      margin: 100px auto;
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.301);
+      border-radius: 5px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
+    }
+
+    #actionsContainer {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 60px;
+    }
+
+    #actionContainer img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    #uploadImagesBtn:hover,
+    #createVideoBtn:hover {
+      background-color: #218838;
+      color: #fff;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+      color: #fff;
+    }
+
+    #uploadImagesBtn {
+      background-color: #28a745;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+
+    #uploadedImagesContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      margin: 20px 50px;
+    }
+
+    #uploadedImagesContainer img {
+      width: calc((100% - 20px) / 3);
+      height: 200px;
+    }
+    
+    @media screen and (max-width: 768px) {
+
+      #uploadedImagesContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 5px;
+      margin: 5px 20px;
+    }
+
+      #uploadedImagesContainer img {
+        width: calc((100% - 20px) / 2);
+        height:90px;
+      }
+    }
+
+    #createVideoContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #createVideoContainer img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      img{
+        width: 105px;
+        height: 101 px;
+      }
+
+      #createVideoContainer img {
+        width: 105px;
+        height: 105px;
+      }
+    }
+
+    #upload,
+    #create {
+      margin-bottom: 50px;
+    }
+
+    .popup {
+      width: 80%;
+      height: 60%;
+      background-color: #cfe0ff;
+      position: absolute;
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.1);
+      text-align: center;
+      padding: 20px 0;
+      border-radius: 50px;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
+      visibility: hidden;
+      transition: transform 0.4s, top 0.4s;
+      overflow: auto;
+      background-image: url('../static/img/upload-image.png');
+      background-repeat: no-repeat;
+      background-size: 20%;
+      background-position: center;
+      justify-content: space-between;
+
+    }
+
+    .open-popup {
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+      top: 50%;
+
+    }
+
+    .popup p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .popup #popbutton {
+      background-color: #007bff;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.384);
+      border-radius: 5px;
+      margin-top: 25px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #dropArea {
+      margin-top: 80px;
+      height: 400px;
+      margin-left: 50px;
+      margin-right: 50px;
+      border: 2px dashed #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #dropArea:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    #droppedImagesContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      margin: 20px 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header"></header>
+
+  <nav class="navbar">
+    <div class="logo">
+      <img class="header-logo-image" src="/static/img/logo.svg" alt="Logo"
+        style="width: 30px; height: 30px; margin-top: 20px;">
+      <span class="header-title">Username: <i>{{row['user_name']}} </i> Name:   <i> {{row['name']}}</i></span>
+    </div>
+    <div class="button-container">
+      <a href="{{ url_for('logout') }}" class="codepen-button2"><span>Logout</span></a>
+    </div>
+  </nav>
+
+  <div id="container">
+    <div class="popup" id="popup">
+      <div id="dropArea" onclick="document.getElementById('fileInput').click()" ondrop="dropHandler(event)"
+        ondragover="dragOverHandler(event)">
+        <p>Drag and drop images here or click to upload</p>
+      </div>
+      <input type="file" id="fileInput" style="display: none;" multiple onchange="handleFiles(this.files)">
+      <div id="droppedImagesContainer"></div>
+      <!-- <input type="text" id="metadataInput" placeholder="Enter metadata"> -->
+      <div id="buttonContainer">
+        <button class="button" id="popbutton" onclick="uploadImages()">Upload & Save</button>
+        <button class="button" id="cancelButton" onclick="closePopup()">Close</button>
+      </div>
+    </div>
+
+    <div id="actionsContainer">
+      <section id="upload">
+        <img src="/static/img/upload-image.png" alt="Upload Image Icon">
+        <button class="button" id="uploadImagesBtn" onclick="openPopup()">Upload Images</button>
+      </section>
+
+      <section id="createVideoContainer">
+        <img src="/static/img/icon-play.png" alt="Create Video Icon">
+        <a href="{{ url_for('videopage')}}">
+          <button class="button">Create Video</button></a>
+      </section>
+    </div>
+    <div id="uploadedImagesContainer" >
+      {% for image_data in image_data_list %}
+          <img src="{{ image_data }}" alt="User Image">
+      {% endfor %}
+    </div>
+    
+  </div>
+
+  <script>
+    let popup = document.getElementById('popup');
+
+    function openPopup() {
+      popup.classList.add('open-popup');
+    }
+
+    function closePopup() {
+      popup.classList.remove('open-popup');
+      
+    }
+
+    function dropHandler(event) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+
+      for (const file of files) {
+        displayImage(file);
+      }
+    }
+
+    function dragOverHandler(event) {
+      event.preventDefault();
+    }
+
+    function displayImage(file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        document.getElementById('droppedImagesContainer').appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function handleFiles(files) {
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        if (!file.type.startsWith('image/')) { continue }
+        displayImage(file);
+      }
+    }
+
+    function uploadImages() {
+      let fileInput = document.getElementById('fileInput');
+      let formData = new FormData();
+
+      for (let i = 0; i < fileInput.files.length; i++) {
+        formData.append('file', fileInput.files[i]);
+      }
+
+      
+
+      fetch('/home/user/{{user_id}}', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            console.log('Image uploaded successfully!');
+            closePopup();
+            location.reload();  
+          } else {
+            console.error('Image upload failed!');
+          }
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
+    }
+    
+    function displayAllImages(user_id) {
+            var imageContainer = $('#imageContainer');
+
+            // Make an AJAX request to fetch all image IDs for the specified user
+            $.ajax({
+                url: `/get_all_image_ids/${user_id}`,
+                method: 'GET',
+                success: function(image_ids) {
+                    // Iterate through the fetched image IDs and display images
+                    image_ids.forEach(function(image_id) {
+                        // Make an AJAX request to fetch image data from the server
+                        $.ajax({
+                            url: `/get_image/${user_id}/${image_id}`,
+                            method: 'GET',
+                            responseType: 'blob',  // Set the response type to 'blob'
+                            success: function(data) {
+                                // Create an image element and append it to the container
+                                var imageElement = $('<img>');
+                                imageElement.attr('src', URL.createObjectURL(data));
+                                imageContainer.append(imageElement);
+                            },
+                            error: function(error) {
+                                console.error('Error fetching image:', error);
+                            }
+                        });
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching image IDs:', error);
+                }
+            });
+        }
+        
+
+   
+  </script>
+</body>
+
+</html>

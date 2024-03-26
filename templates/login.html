@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styled.css') }}">
+  <link rel="stylesheet" href="../static/css/styled.css">
+</head>
+<body>
+  <div id="login-container">
+    <h2 style="color: white;">Login</h2>
+    <form id="login-form" method="POST" action="/login">
+      <input type="text" id="username" name="username" placeholder="Username" required><br>
+      <input type="password" id="password" name="password" placeholder="Password" required><br>
+      <input type="submit" id="login-submit" value="Login">
+      <div id="login-message">
+        {% if login_failed %}
+          ⚠️ Login failed. <br>Please try again.
+        {% endif %}
+      </div>
+    </form>
+    <!-- <div class="separator">
+      <span class="or">OR</span>
+    </div>
+    <button id="login-with-google" class="login-with-google">Login with Google</button> -->
+    <div class="separator">
+      <span class="or">Don't have an account?</span>  
+    </div>
+    <a href="{{ url_for('signup') }}">Sign Up</a>
+  </div>
+  
+ 
+</body>
+</html>
