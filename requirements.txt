@@ -7,7 +7,6 @@ click==8.1.7
 contourpy==1.2.0
 cryptography==3.4.8
 cycler==0.12.1
-dbus-python==1.2.18
 decorator==4.4.2
 distlib==0.3.8
 distro==1.7.0
