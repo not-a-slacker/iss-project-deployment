@@ -60,7 +60,6 @@ SQLAlchemy==2.0.28
 sqlalchemy-cockroachdb==2.0.2
 tqdm==4.66.2
 typing_extensions==4.10.0
-ufw==0.36.1
 unattended-upgrades==0.1
 urllib3==2.2.1
 virtualenv==20.25.0
