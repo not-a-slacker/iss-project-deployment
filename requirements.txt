@@ -58,7 +58,6 @@ SecretStorage==3.3.1
 six==1.16.0
 SQLAlchemy==2.0.28
 sqlalchemy-cockroachdb==2.0.2
-systemd-python==234
 tqdm==4.66.2
 typing_extensions==4.10.0
 ubuntu-advantage-tools==8001
