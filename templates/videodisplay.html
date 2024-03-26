@@ -66,11 +66,14 @@
         // Additional JavaScript for Fast Forward and Rewind buttons
         const video = document.querySelector('video');
         const fastForwardBtn = document.getElementById('fastForward');
+        const source = document.querySelector('source');
         const rewindBtn = document.getElementById('rewind');
-
+        source.src = "/static/output_video.mp4?time=" + new Date().getTime();
+        video.load();
         fastForwardBtn.addEventListener('click', () => {
             video.currentTime += 5; // Adjust as needed
         });
+        
 
         rewindBtn.addEventListener('click', () => {
             video.currentTime -= 5; // Adjust as needed
